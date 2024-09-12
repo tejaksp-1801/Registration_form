@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration Data</title>
+    <script>
+        function calculateAge(birthDate) {
+            var today = new Date();
+            var birthDate = new Date(birthDate);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        window.onload = function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var dataContainer = document.getElementById('dataContainer');
+            var data = '';
+    
+            // Define the order of fields
+            var fields = [
+                'firstName', 'lastName', 'dob', 'email', 'phone', 
+                'streetAddress', 'streetAddress2', 'state', 'city', 'zipCode',
+                'position', 'gender'
+            ];
+
+            fields.forEach(function(field) {
+                var value = urlParams.get(field);
+                if (value) {
+                    if (field === 'dob') {
+                        var age = calculateAge(value);
+                        data += '<p><strong>Date of Birth:</strong> ' + value + '</p>';
+                        data += '<p><strong>Age:</strong> ' + age + ' years</p>';
+                    } else {
+                        data += '<p><strong>' + field.charAt(0).toUpperCase() + field.slice(1) + ':</strong> ' + value + '</p>';
+                    }
+                }
+            });
+
+            dataContainer.innerHTML = data;
+        }
+
+    </script>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="center">
+                <table width="600" border="1" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="center">
+                            <h2>Employee Registration Data</h2>
+                            <hr>
+                            <div id="dataContainer"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

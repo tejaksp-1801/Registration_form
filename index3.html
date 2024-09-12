@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration Form</title>
+    <script>
+        function validateForm() {
+            var isValid = true;
+
+            // Name validation
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var nameRegex = /^[a-zA-Z]+$/;
+            if (!nameRegex.test(firstName)) {
+                document.getElementById('firstNameError').textContent = "First name should contain only letters.";
+                isValid = false;
+            } else {
+                document.getElementById('firstNameError').textContent = "";
+            }
+            if (!nameRegex.test(lastName)) {
+                document.getElementById('lastNameError').textContent = "Last name should contain only letters.";
+                isValid = false;
+            } else {
+                document.getElementById('lastNameError').textContent = "";
+            }
+
+            // Phone number validation
+            var phone = document.getElementById('phone').value;
+            if (phone.replace(/\D/g, '').length !== 10) {
+                document.getElementById('phoneError').textContent = "Phone number should contain exactly 10 digits.";
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').textContent = "";
+            }
+
+            // Email validation
+            var email = document.getElementById('email').value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = "Please enter a valid email address.";
+                isValid = false;
+            } else {
+                document.getElementById('emailError').textContent = "";
+            }
+
+            // Age calculation and validation
+            var dob = new Date(document.getElementById('dob').value);
+            var today = new Date();
+            var age = today.getFullYear() - dob.getFullYear();
+            var m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            if (age < 18) {
+                document.getElementById('dobError').textContent = "You must be at least 18 years old to register.";
+                isValid = false;
+            } else {
+                document.getElementById('dobError').textContent = "";
+            }
+
+            // Zip code validation
+            var zipCode = document.getElementById('zipCode').value;
+            if (zipCode.length !== 6 || isNaN(zipCode)) {
+                document.getElementById('zipCodeError').textContent = "Zip code should be exactly 6 digits.";
+                isValid = false;
+            } else {
+                document.getElementById('zipCodeError').textContent = "";
+            }
+
+            return isValid;
+        }
+    </script>
+</head>
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="center">
+                <table width="600" border="1" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="center">
+                            <h2>Employee Registration Form</h2>
+                            <hr>
+                            <form onsubmit="return validateForm()">
+                                <table width="100%" border="0" cellspacing="10" cellpadding="0">
+                                    <tr>
+                                        <td width="50%">
+                                            <label for="fullName"><b>Full Name</b></label><br>
+                                            <input type="text" id="firstName" name="firstName" required style="width: 46.7%;">
+                                            <input type="text" id="lastName" name="lastName" required style="width: 46.7%;">
+                                            <br>
+                                            <span id="firstNameError" style="color: red;"></span>
+                                            <span id="lastNameError" style="color: red;"></span>
+                                        </td>
+                                        <td width="50%">
+                                            <label for="dob"><b>Date of Birth</b></label><br>
+                                            <input type="date" id="dob" name="dob" required style="width: 100%;">
+                                            <br>
+                                            <span id="dobError" style="color: red;"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label><small>First Name</small></label>
+                                            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                            <label><small>Last Name</small></label>
+                                        </td>
+                                        <td >
+                                            <label><small>Date</small></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <label for="email"><b>Email</b></label><br>
+                                            <input type="email" id="email" name="email" required style="width: 100%;">
+                                            <br>
+                                            <span id="emailError" style="color: red;"></span>
+                                        </td>
+                                        <td width="50%">
+                                            <label for="phone"><b>Phone Number</b></label><br>
+                                            <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" required style="width: 100%;">
+                                            <br>
+                                            <span id="phoneError" style="color: red;"></span>
+                                        </td>
+                                    </tr>
+                                    <td>
+                                        <label><small>example@example.com</small></label>
+                                    </td>
+                                    <td >
+                                        <label><small>Please enter a valid phone number</small></label>
+                                    </td>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label for="address"><b>Address</b></label><br>
+                                            <input type="text" id="streetAddress" name="streetAddress" required style="width: 100%;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label><small>street Address</small></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" id="streetAddress2" name="streetAddress2" style="width: 100%;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label><small>street Address line 2</small></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">
+                                            <select id="state" name="state" required style="width: 100%;">
+                                                <option value="">Select State</option>
+                                                <option value="AP">Andhra Pradesh</option>
+                                                <option value="KA">Karnataka</option>
+                                                <option value="KL">Kerala</option>
+                                                <option value="TN">Tamil Nadu</option>
+                                            </select>
+                                        </td>
+                                        <td width="50%">
+                                            <select id="city" name="city" required style="width: 100%;">
+                                                <option value="">Select City</option>
+                                                <optgroup label="Andhra Pradesh">
+                                                    <option value="Visakhapatnam">Visakhapatnam</option>
+                                                    <option value="Vijayawada">Vijayawada</option>
+                                                    <option value="Guntur">Guntur</option>
+                                                    <option value="Tirupati">Tirupati</option>
+                                                </optgroup>
+                                                <optgroup label="Karnataka">
+                                                    <option value="Bangalore">Bangalore</option>
+                                                    <option value="Mysore">Mysore</option>
+                                                    <option value="Hubli">Hubli</option>
+                                                    <option value="Mangalore">Mangalore</option>
+                                                </optgroup>
+                                                <optgroup label="Kerala">
+                                                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                                    <option value="Kochi">Kochi</option>
+                                                    <option value="Kozhikode">Kozhikode</option>
+                                                    <option value="Thrissur">Thrissur</option>
+                                                </optgroup>
+                                                <optgroup label="Tamil Nadu">
+                                                    <option value="Chennai">Chennai</option>
+                                                    <option value="Coimbatore">Coimbatore</option>
+                                                    <option value="Madurai">Madurai</option>
+                                                    <option value="Tiruchirappalli">Tiruchirappalli</option>
+                                                </optgroup>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td width="50%">
+                                            <label><small><b>State/Province</b></small></label>
+                                        </td>
+
+                                        <td width="50%">
+                                            <label><small><b>city</b></small></label>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+                                            <input type="text" id="zipCode" name="zipCode" required style="width: 100%;">
+                                            <br>
+                                            <span id="zipCodeError" style="color: red;"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            <label ><small><b>Postal / Zip Code</b></small></label><br>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label for="position"><b>Applying Position</b></label><br>
+                                            <input type="text" id="position" name="position" required style="width: 100%;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label><b>Gender</b></label><br><br>
+                                            <input type="radio" id="female" name="gender" value="female" required>
+                                            <label for="female">Female &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </label>
+                                            <input type="radio" id="male" name="gender" value="male" required>
+                                            <label for="male">Male</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label for="resume"><b>Please Upload Resume</b></label><br>
+                                            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <button type="submit">Submit</button>
+                                            <button type="reset">Reset</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
